@@ -15,6 +15,8 @@ public class BaseEntity {
      */
     private Long id;
 
+    private Long groupId;
+
     /**
      * Optimistic lock /乐观锁
      */

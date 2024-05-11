@@ -1,21 +1,17 @@
 package priv.nick.cbs.topgun.domain;
 
 import lombok.Data;
-import lombok.ToString;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import priv.nick.cbs.topgun.domain.base.BaseEntity;
 
-import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * @since 2024-4-18 16:52
  * @author nicksy
  */
 @Data
-public class SetMenu implements Serializable {
-    @Serial
-    private static final long serialVersionUID = -2472511482328990273L;
+public class SetMenu extends BaseEntity {
     /** Merchant id */
     private Long propertyId;
 
