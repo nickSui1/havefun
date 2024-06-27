@@ -1,5 +1,7 @@
 package priv.nick.cbs.topgun.util;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @since 2024-05-08 15:16
  * @author nicksy

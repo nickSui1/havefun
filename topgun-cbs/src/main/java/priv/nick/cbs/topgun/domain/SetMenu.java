@@ -1,8 +1,6 @@
 package priv.nick.cbs.topgun.domain;
 
 import lombok.Data;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import priv.nick.cbs.topgun.domain.base.BaseEntity;
 
 
@@ -32,6 +30,7 @@ public class SetMenu extends BaseEntity {
 
     @Override
     public String toString(){
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return "SetMenu [propertyId=" + propertyId + ", code=" + code + ", name=" + name + ", description="
+                + description + ", serviceType=" + serviceType + ", sortNo=" + sortNo + "]";
     }
 }
