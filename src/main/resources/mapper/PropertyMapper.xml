@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.nick.cbs.topgun.dao.PropertyMapper">
+    <resultMap id="BaseResultMap" type="priv.nick.cbs.topgun.model.Property">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+        <result column="contact_email" jdbcType="VARCHAR" property="contactEmail" />
+        <result column="group_id" jdbcType="BIGINT" property="groupId" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="province" jdbcType="VARCHAR" property="province" />
+        <result column="country" jdbcType="VARCHAR" property="country" />
+        <result column="group_flag" jdbcType="VARCHAR" property="groupFlag" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedAt" />
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from property
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="priv.nick.cbs.topgun.model.Property">
+        insert into property (id, name, code,
+                              contact_name, contact_phone, contact_email,
+                              group_id, city, province,
+                              country, group_flag, description,
+                              created_by, created_time, updated_by,
+                              updated_time)
+        values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+                #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR},
+                #{groupId,jdbcType=BIGINT}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
+                #{country,jdbcType=VARCHAR}, #{groupFlag,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+                #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR},
+                #{updatedTime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="priv.nick.cbs.topgun.model.Property">
+        update property
+        set name = #{name,jdbcType=VARCHAR},
+            code = #{code,jdbcType=VARCHAR},
+            contact_name = #{contactName,jdbcType=VARCHAR},
+            contact_phone = #{contactPhone,jdbcType=VARCHAR},
+            contact_email = #{contactEmail,jdbcType=VARCHAR},
+            group_id = #{groupId,jdbcType=BIGINT},
+            city = #{city,jdbcType=VARCHAR},
+            province = #{province,jdbcType=VARCHAR},
+            country = #{country,jdbcType=VARCHAR},
+            group_flag = #{groupFlag,jdbcType=VARCHAR},
+            description = #{description,jdbcType=VARCHAR},
+            created_by = #{createdBy,jdbcType=VARCHAR},
+            created_time = #{createdTime,jdbcType=TIMESTAMP},
+            updated_by = #{updatedBy,jdbcType=VARCHAR},
+            updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select id, name, code, contact_name, contact_phone, contact_email, group_id, city,
+               province, country, group_flag, description, created_by, created_time, updated_by,
+               updated_time
+        from property
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, name, code, contact_name, contact_phone, contact_email, group_id, city,
+               province, country, group_flag, description, created_by, created_time, updated_by,
+               updated_time
+        from property
+    </select>
+</mapper>

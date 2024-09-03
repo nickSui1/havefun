@@ -13,5 +13,7 @@
         <typeAlias alias="LinkedList" type="java.util.LinkedList" />
         <typeAlias type="priv.nick.cbs.topgun.model.SetMenu" alias="SetMenu" />
         <typeAlias type="priv.nick.cbs.topgun.model.User" alias="User" />
+        <typeAlias type="priv.nick.cbs.topgun.model.Group" alias="Group"/>
+        <typeAlias type="priv.nick.cbs.topgun.model.Property" alias="Property"/>
     </typeAliases>
 </configuration>
