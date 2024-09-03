@@ -14,10 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/set_menu")
-public class SetMenuController {
+public class SetMenuResource {
     private SetMenuService setMenuService;
     @Autowired
-    public SetMenuController(SetMenuService setMenuService) {
+    public SetMenuResource(SetMenuService setMenuService) {
         this.setMenuService=setMenuService;
     }
 
