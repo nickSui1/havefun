@@ -7,7 +7,7 @@ import priv.nick.cbs.topgun.model.base.BaseEntity;
 public class PropertyUser extends BaseEntity {
     private Long id;
 
-    private Long groupId;
+    private Long tenantId;
 
     private Long propertyId;
 

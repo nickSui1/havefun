@@ -46,7 +46,7 @@ public class SetMenuServiceImpl implements SetMenuService {
         SetMenu setMenu = modelMapper.map(setMenuAddDTO, SetMenu.class);
         setMenu.setId(id);
         setMenu.setCreatedBy("admin");
-        setMenu.setCreatedAt(LocalDateTime.now().toInstant(ZoneOffset.UTC));
+        setMenu.setCreateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC));
         setMenuMapper.insert(setMenu);
 
         return id;

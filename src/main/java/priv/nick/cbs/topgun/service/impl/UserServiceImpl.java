@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         Long id = snowflakeIdWorker.nextId();
         userEntity.setId(id);
         userEntity.setCreatedBy("admin");
-        userEntity.setCreatedAt(LocalDateTime.now().toInstant(ZoneOffset.UTC));
+        userEntity.setCreateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC));
 
         Long userId = userMapper.createUser(userEntity);
 

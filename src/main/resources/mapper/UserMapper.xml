@@ -5,22 +5,22 @@
 <mapper namespace="priv.nick.cbs.topgun.dao.UserMapper">
     <resultMap id="UserResultMap" type="User">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="group_id" property="groupId" jdbcType="BIGINT"/>
+        <result column="tenant_id" property="tenantId" jdbcType="BIGINT"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR"/>
         <result column="email" property="email" jdbcType="VARCHAR"/>
         <result column="revision" property="revision" jdbcType="INTEGER"/>
         <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
-        <result column="created_time" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="created_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
-        <result column="updated_time" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <insert id="createUser" parameterType="User">
-        insert into user(id, group_id, property_id, username, password, mobile_phone, email, role_id, created_by, created_time, updated_by, updated_time)
-        values (#{id},#{groupId},#{propertyId},#{username},#{password},#{mobilePhone},#{email},#{roleId},#{createdBy},#{createdAt});
+        insert into user(id, tenant_id, property_id, username, password, mobile_phone, email, role_id, created_by, created_time, updated_by, updated_time)
+        values (#{id},#{tenantId},#{propertyId},#{username},#{password},#{mobilePhone},#{email},#{roleId},#{createdBy},#{createdAt});
     </insert>
     <select id="findByUsername" resultMap="UserResultMap">
-        select * from user where username=#{username} and group_id=#{groupId}
+        select * from user where username=#{username}
     </select>
 </mapper>

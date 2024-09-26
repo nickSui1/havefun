@@ -15,7 +15,7 @@ public class BaseEntity {
      */
     private Long id;
 
-    private Long groupId;
+    private Long tenantId;
 
     private int revision;
 
@@ -24,9 +24,9 @@ public class BaseEntity {
      */
     private int version;
 
-    private Instant createdAt;
+    private Instant createTime;
 
-    private Instant updatedAt;
+    private Instant updateTime;
 
     private String createdBy;
 

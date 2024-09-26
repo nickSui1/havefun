@@ -1,6 +1,7 @@
 package priv.nick.cbs.topgun.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 import priv.nick.cbs.topgun.model.base.BaseEntity;
 
 /**
@@ -9,6 +10,7 @@ import priv.nick.cbs.topgun.model.base.BaseEntity;
  * 用户表
  */
 @Data
+@Component
 public class User extends BaseEntity {
     private String username;
     private String password;

@@ -29,3 +29,11 @@ jwt:
   secret: d4d886110151cfd7c54ea63f73ceb442e5a0d10de9d69a441681686b533d45af
   expiration:
     milliseconds: 604800000
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          logging:
+            LogLevel: DEBUG
