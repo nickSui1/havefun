@@ -3,29 +3,29 @@
 <mapper namespace="priv.nick.cbs.topgun.dao.PropertyUserMapper">
   <resultMap id="BaseResultMap" type="priv.nick.cbs.topgun.model.PropertyUser">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="group_id" jdbcType="BIGINT" property="groupId" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
     <result column="property_id" jdbcType="BIGINT" property="propertyId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from property_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="priv.nick.cbs.topgun.model.PropertyUser">
-    insert into property_user (id, group_id, property_id, 
+    insert into property_user (id, tenant_id, property_id,
       user_id, created_by, created_time, 
       updated_by, updated_time)
-    values (#{id,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, #{propertyId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{tenantId,jdbcType=BIGINT}, #{propertyId,jdbcType=BIGINT},
       #{userId,jdbcType=BIGINT}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="priv.nick.cbs.topgun.model.PropertyUser">
     update property_user
-    set group_id = #{groupId,jdbcType=BIGINT},
+    set tenant_id = #{tenantId,jdbcType=BIGINT},
       property_id = #{propertyId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       created_by = #{createdBy,jdbcType=VARCHAR},
@@ -35,13 +35,13 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, group_id, property_id, user_id, created_by, created_time, updated_by, 
+    select id, tenant_id, property_id, user_id, created_by, created_time, updated_by,
     updated_time
     from property_user
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, group_id, property_id, user_id, created_by, created_time, updated_by, 
+    select id, tenant_id, property_id, user_id, created_by, created_time, updated_by,
     updated_time
     from property_user
   </select>

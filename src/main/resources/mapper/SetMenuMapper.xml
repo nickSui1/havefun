@@ -5,7 +5,7 @@
 <mapper namespace="priv.nick.cbs.topgun.dao.SetMenuMapper">
     <resultMap id="SetMenuResultMap" type="SetMenu">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="group_id" property="groupId" jdbcType="BIGINT"/>
+        <result column="tenant_id" property="tenantId" jdbcType="BIGINT"/>
         <result column="property_id" property="propertyId" jdbcType="BIGINT"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
@@ -14,9 +14,9 @@
         <result column="description" property="description" jdbcType="VARCHAR"/>
         <result column="sort_no" property="sortNo" jdbcType="INTEGER"/>
         <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
-        <result column="created_time" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="created_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
-        <result column="updated_time" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="selectAll" resultMap="SetMenuResultMap">
@@ -24,8 +24,8 @@
     </select>
 
     <insert id="insert" parameterType="SetMenu">
-        insert into set_menu(id,group_id,property_id,code,name,revision,service_type,description,sort_no,created_by,created_time)
-        values(#{id},#{groupId},#{propertyId},#{code},#{name},#{revision},#{serviceType},#{description},#{sortNo},#{createdBy},#{createdAt});
+        insert into set_menu(id,tenant_id,property_id,code,name,revision,service_type,description,sort_no,created_by,created_time)
+        values(#{id},#{tenantId},#{propertyId},#{code},#{name},#{revision},#{serviceType},#{description},#{sortNo},#{createdBy},#{createdAt});
     </insert>
 
     <select id="findById" resultMap="SetMenuResultMap">

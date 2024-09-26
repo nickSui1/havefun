@@ -27,12 +27,12 @@ public class SetMenuInfoDTO extends BaseEntityDTO implements Serializable {
     
     private Long propertyId;
     
-    private Long groupId;
+    private Long tenantId;
 
     @Override
     public String toString(){
         return "SetMenu [propertyId=" + propertyId + ", code=" + code + ", name=" + name + ", description="
-                + description + ", serviceType=" + serviceType + ", sortNo=" + sortNo + ", groupId="+groupId+
+                + description + ", serviceType=" + serviceType + ", sortNo=" + sortNo + ", tenantId="+tenantId+
                 ", createdBy="+getCreatedBy() +", createdAt="+ getCreatedAt() +
                 ", updatedBy="+getUpdatedBy() +", updatedAt="+ getUpdatedAt() +"]";
     }
