@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.nick.cbs.topgun.dao.ClientMapper">
+  <resultMap id="BaseResultMap" type="priv.nick.cbs.topgun.model.Client">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    <result column="client_secret" jdbcType="VARCHAR" property="clientSecret"/>
+    <result column="access_token_expires" jdbcType="INTEGER" property="accessTokenExpires" />
+    <result column="refresh_token_lifespan" jdbcType="INTEGER" property="refreshTokenLifespan" />
+    <result column="origins" jdbcType="VARCHAR" property="origins" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from client
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="priv.nick.cbs.topgun.model.Client">
+    insert into client (id, tenant_id, client_secret, access_token_expires,
+      refresh_token_lifespan, origins, description, 
+      created_by, created_time, updated_by, 
+      updated_time)
+    values (#{id,jdbcType=BIGINT}, #{tenantId,jdbcType=BIGINT}, #{clientSecret,jdbcType=VARCHAR} , #{accessTokenExpires,jdbcType=INTEGER},
+      #{refreshTokenLifespan,jdbcType=INTEGER}, #{origins,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="priv.nick.cbs.topgun.model.Client">
+    update client
+    set tenant_id = #{tenantId,jdbcType=BIGINT},
+      client_secret = #{clientSecret,jdbcType=VARCHAR},
+      access_token_expires = #{accessTokenExpires,jdbcType=INTEGER},
+      refresh_token_lifespan = #{refreshTokenLifespan,jdbcType=INTEGER},
+      origins = #{origins,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, tenant_id, client_secret, access_token_expires, refresh_token_lifespan, origins, description,
+    created_by, created_time, updated_by, updated_time
+    from client
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenant_id, client_secret, access_token_expires, refresh_token_lifespan, origins, description,
+    created_by, created_time, updated_by, updated_time
+    from client
+  </select>
+  <select id="selectByTenantId" resultType="priv.nick.cbs.topgun.model.Client">
+    select id, tenant_id, client_secret, access_token_expires, refresh_token_lifespan, origins, description,
+           created_by, created_time, updated_by, updated_time
+    from client
+    where tenant_id = #{tenantId,jdbcType=BIGINT}
+  </select>
+</mapper>
