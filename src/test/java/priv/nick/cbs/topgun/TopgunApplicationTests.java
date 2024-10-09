@@ -7,6 +7,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 
+import java.security.SecureRandom;
+import java.util.Base64;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = { TopgunApplicationTests.class })
@@ -17,7 +20,11 @@ class TopgunApplicationTests {
 	}
 
 	public static void main(String[] args) {
-		Integer a = null;
-		Assert.notNull(a,"Integer a must not be null");
+		SecureRandom random = new SecureRandom();
+		byte[] bytes = new byte[32];
+		random.nextBytes(bytes);
+		String secret = Base64.getEncoder().encodeToString(bytes);
+		System.out.println(secret);
 	}
+
 }

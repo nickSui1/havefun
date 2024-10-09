@@ -17,12 +17,34 @@ mybatis:
   config-location: classpath:/mybatis-config.xml
 
 spring:
-  # 设置数据源
+  cloud:
+    # Vault used for storage sensitive data
+    vault:
+      uri: http://8.141.85.27:8200
+      token: ${VAULT_TOKEN}
+      kv:
+        enabled: true
+        backend: secret
+        default-context: cbs/db
+        additional-contexts:
+          - cbs/redis
+          - cbs/text
+  config:
+    import:
+      - vault://secret/cbs/db
+      - vault://secret/cbs/redis
+      - vault://secret/cbs/text
+  #import: optional:vault://
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://8.141.85.27:3306/cbs
-    username: admin
-    password: Nicksui1992.
+    username: ${mysql-cbs.username}
+    password: ${mysql-cbs.password}
+  data:
+    redis:
+      host: 8.141.85.27
+      port: 6379
+      password: ${redis.password}
 
 # 604800000=7天
 jwt:
@@ -37,3 +59,6 @@ logging:
         boot:
           logging:
             LogLevel: DEBUG
+        vault: DEBUG
+        cloud:
+          vault: DEBUG

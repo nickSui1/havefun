@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/group")
-public class GroupResource {
+@RequestMapping("/tenant")
+public class TenantResource {
 
     @PostMapping("/")
     public ResponseEntity<?> add(){

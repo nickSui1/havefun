@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import priv.nick.cbs.topgun.constant.SecurityConstants;
 import priv.nick.cbs.topgun.dao.ClientMapper;
 import priv.nick.cbs.topgun.dao.UserMapper;
+import priv.nick.cbs.topgun.security.dto.RefreshTokenRequest;
 import priv.nick.cbs.topgun.security.dto.TokenRequest;
 import priv.nick.cbs.topgun.security.dto.TokenResponse;
 import priv.nick.cbs.topgun.security.service.CustomUserDetails;
@@ -78,12 +79,12 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public TokenResponse refreshToken(String refreshToken) {
-        if(!jwtTokenProvider.validateToken(refreshToken)){
+    public TokenResponse refreshToken(RefreshTokenRequest refreshToken) {
+        if(!jwtTokenProvider.validateToken(refreshToken.getRefreshToken())){
             throw new IllegalArgumentException("Invalid refresh token");
         }
         TokenResponse tokenResponse = new TokenResponse();
-        String username = jwtTokenProvider.getUsername(refreshToken);
+        String username = jwtTokenProvider.getUsername(refreshToken.getRefreshToken());
         CustomUserDetails customUserDetails = (CustomUserDetails)customUserDetailsService
                 .loadUserByUsername(username);
         Map<String,List<String>> authorizes = customUserDetails.getRoleAndPermissions();
@@ -93,7 +94,7 @@ public class TokenServiceImpl implements TokenService {
                 username,rolesAndPermissions,SecurityConstants.ACCESS_TOKEN);
 
         tokenResponse.setAccessToken(access_token);
-        tokenResponse.setRefreshToken(refreshToken);
+        tokenResponse.setRefreshToken(refreshToken.getRefreshToken());
         tokenResponse.setUsername(username);
         tokenResponse.setRoles(rolesAndPermissions);
 
