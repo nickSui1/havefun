@@ -78,6 +78,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests((authorize) -> {
                 authorize.requestMatchers("/auth/token").permitAll()
                          .requestMatchers("/auth/refresh_token").permitAll()
+                         .requestMatchers("/auth/credentials").permitAll()
                          .anyRequest().authenticated();
             })
             .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
