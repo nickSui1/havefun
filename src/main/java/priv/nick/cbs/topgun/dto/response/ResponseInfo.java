@@ -19,6 +19,11 @@ public class ResponseInfo implements Serializable {
         this.data = data;
     }
 
+    public ResponseInfo(String message, Integer status) {
+        this.message = message;
+        this.status = status;
+    }
+
     public ResponseInfo(String message, Object data, Integer status) {
         this.message = message;
         this.data = data;

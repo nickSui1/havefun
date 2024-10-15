@@ -1,4 +1,4 @@
-package priv.nick.cbs.topgun.dto;
+package priv.nick.cbs.topgun.integration.vault;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -6,9 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties("credentials-client")
-public class VaultSecret {
-    private String username;
-
+@ConfigurationProperties("redis-cbs")
+public class RedisKV {
     private String password;
 }

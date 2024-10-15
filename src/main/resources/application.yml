@@ -40,11 +40,15 @@ spring:
     url: jdbc:mysql://8.141.85.27:3306/cbs
     username: ${mysql-cbs.username}
     password: ${mysql-cbs.password}
-  data:
-    redis:
-      host: 8.141.85.27
-      port: 6379
-      password: ${redis.password}
+#  data:
+#    redis:
+#      host: 8.141.85.27
+#      port: 6379
+#      password: ${redis.password}
+redis:
+  host: 8.141.85.27
+  port: 6379
+  pwd: ${redis.password}
 
 # 604800000=7天
 jwt:
@@ -59,6 +63,7 @@ logging:
         boot:
           logging:
             LogLevel: DEBUG
-        vault: DEBUG
-        cloud:
-          vault: DEBUG
+#        cloud:
+#          vault: DEBUG
+        data:
+          redis: DEBUG

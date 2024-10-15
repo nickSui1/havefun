@@ -20,7 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.filter.CorsFilter;
 import priv.nick.cbs.topgun.config.security.serviceImpl.CustomAccessDeniedHandlerImpl;
 import priv.nick.cbs.topgun.config.security.serviceImpl.CustomAuthenticationEntryPointImpl;
+import priv.nick.cbs.topgun.integration.RedisService;
 import priv.nick.cbs.topgun.security.service.CustomUserDetailsService;
+import priv.nick.cbs.topgun.util.JwtTokenProvider;
 
 /**
  * @author nick.sui
@@ -33,6 +35,10 @@ import priv.nick.cbs.topgun.security.service.CustomUserDetailsService;
 public class SecurityConfiguration {
     @Autowired
     private CorsFilter corsFilter;
+    @Autowired
+    private RedisService redisService;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     private final CustomUserDetailsService customUserDetailsService;
 
@@ -61,6 +67,12 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public AuthenticationFilter authenticationFilter(){
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(jwtTokenProvider, redisService);
+        return authenticationFilter;
+    }
+
+    @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandlerImpl();
     }
@@ -74,11 +86,10 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
             .csrf(AbstractHttpConfigurer::disable)
-            .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests((authorize) -> {
                 authorize.requestMatchers("/auth/token").permitAll()
                          .requestMatchers("/auth/refresh_token").permitAll()
-                         .requestMatchers("/auth/credentials").permitAll()
                          .anyRequest().authenticated();
             })
             .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->

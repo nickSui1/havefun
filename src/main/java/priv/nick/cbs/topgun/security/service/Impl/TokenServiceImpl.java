@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
+import priv.nick.cbs.topgun.constant.RedisKeyConstants;
 import priv.nick.cbs.topgun.constant.SecurityConstants;
 import priv.nick.cbs.topgun.dao.ClientMapper;
 import priv.nick.cbs.topgun.dao.UserMapper;
+import priv.nick.cbs.topgun.integration.RedisService;
 import priv.nick.cbs.topgun.security.dto.RefreshTokenRequest;
 import priv.nick.cbs.topgun.security.dto.TokenRequest;
 import priv.nick.cbs.topgun.security.dto.TokenResponse;
@@ -20,30 +19,37 @@ import priv.nick.cbs.topgun.security.service.TokenService;
 import priv.nick.cbs.topgun.util.FormatUtils;
 import priv.nick.cbs.topgun.util.JwtTokenProvider;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class TokenServiceImpl implements TokenService {
     private final CustomUserDetailsService customUserDetailsService;
-    private UserMapper userMapper;
-    private ClientMapper clientMapper;
-    private JwtTokenProvider jwtTokenProvider;
-    private AuthenticationManager authenticationManager;
-    private FormatUtils formatUtils;
+    private final UserMapper userMapper;
+    private final ClientMapper clientMapper;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationManager authenticationManager;
+    private final FormatUtils formatUtils;
+    private final RedisService redisService;
+    private final static List<String> token_black_list = new ArrayList<>();
 
     @Autowired
     public TokenServiceImpl(UserMapper userMapper,
                             ClientMapper clientMapper,
                             JwtTokenProvider jwtTokenProvider,
                             AuthenticationManager authenticationManager,
-                            FormatUtils formatUtils, CustomUserDetailsService customUserDetailsService) {
+                            FormatUtils formatUtils,
+                            CustomUserDetailsService customUserDetailsService,
+                            RedisService redisService) {
         this.userMapper = userMapper;
         this.clientMapper = clientMapper;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
         this.formatUtils = formatUtils;
         this.customUserDetailsService = customUserDetailsService;
+        this.redisService = redisService;
     }
 
     @Override
@@ -102,7 +108,8 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void invalidateToken() {
-
+    public void invalidateToken(String token) {
+        token_black_list.add(token);
+        redisService.lPush(RedisKeyConstants.REDIS_BLACK_LIST_KEY, Collections.singletonList(token));
     }
 }
