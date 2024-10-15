@@ -7,5 +7,5 @@ import priv.nick.cbs.topgun.security.dto.TokenResponse;
 public interface TokenService {
     public TokenResponse generateToken(TokenRequest tokenRequest);
     public TokenResponse refreshToken(RefreshTokenRequest refreshToken);
-    public void invalidateToken();
+    public void invalidateToken(String token);
 }
